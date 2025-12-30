@@ -2,8 +2,16 @@
 import {Account, Client, Databases} from "react-native-appwrite";
 
 export const client = new Client()
-  .setEndpoint(process.env.APPWRITE_ENDPOINT!)
-  .setProject(process.env.APPWRITE_PROJECT_ID!)
+  .setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!)
+  .setEndpoint(process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!)
 
 
-export const account = new Account(client)
+export const account = new Account(client);
+export const databases = new Databases(client);
+
+export const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID;
+export const COLLECTION_NAME = process.env.EXPO_PUBLIC_HABITS_TABLE;
+
+
+
+
