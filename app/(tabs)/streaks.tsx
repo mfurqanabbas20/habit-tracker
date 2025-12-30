@@ -1,15 +1,16 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import capitalizeWord from "@mfurqanabbas20/capitalize-word";
 
-const LoginScreen = () => {
+const StreaksScreen = () => {
   return (
     <View style={styles.view}>
-        <Text>Hello World</Text>
+      <Text>{capitalizeWord('hhh')} </Text>
     </View>
   )
 }
 
-export default LoginScreen;
+export default StreaksScreen;
 
 const styles = StyleSheet.create({
     view: {
