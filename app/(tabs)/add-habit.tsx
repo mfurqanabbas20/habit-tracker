@@ -1,14 +1,9 @@
+import { DataType } from '@/lib/types/habits';
 import React, { useState } from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Button, SegmentedButtons, TextInput } from 'react-native-paper';
 
 const FREQUENCIES = ["daily", "weekly", "monthly"];
-
-interface DataType {
-    title: string;
-    description: string;
-    frequency: string;
-}
 
 const AddHabitScreen = () => {
     const [data, setData]  = useState<DataType>({
