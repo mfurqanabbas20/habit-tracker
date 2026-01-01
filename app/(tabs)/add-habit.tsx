@@ -42,6 +42,13 @@ const AddHabitScreen = () => {
         />
         <View style={styles.frequencyContainer}>
           <SegmentedButtons
+            value={data.frequency}
+            onValueChange={(value) => setData(prev => {
+              return {
+                ...prev,
+                frequency: value
+              }
+            })}
             style={styles.segmentedButtons}
             buttons={FREQUENCIES.map(item => (
               {label: item.charAt(0), value: item}
