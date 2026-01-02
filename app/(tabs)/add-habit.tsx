@@ -1,16 +1,44 @@
+import { COLLECTION_NAME, DATABASE_ID, databases } from '@/lib/appwrite';
+import { useAuth } from '@/lib/auth-context';
 import { DataType } from '@/lib/types/habits';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {View, StyleSheet} from 'react-native';
+import { ID } from 'react-native-appwrite';
 import { Button, SegmentedButtons, TextInput } from 'react-native-paper';
 
 const FREQUENCIES = ["daily", "weekly", "monthly"];
 
 const AddHabitScreen = () => {
-    const [data, setData]  = useState<DataType>({
-        title: "",
-        description: "",
-        frequency: "daily",
-    })
+  const router = useRouter();
+  const [data, setData]  = useState<DataType>({
+      title: "",
+      description: "",
+      frequency: "daily",
+  });
+  const {user} = useAuth();
+
+  const handleSubmit = async () => {
+    if(!user) return;
+
+    await databases.createDocument(
+      DATABASE_ID || "",
+      COLLECTION_NAME || "",
+      ID.unique(),
+      {
+        user_id: user.$id,
+        title: data.title,
+        description: data.description,
+        frequency: data.frequency,
+        streak_count: 0,
+        last_completed: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+      }
+    );
+
+    router.back();
+  }
+
   return (
     <View style={styles.container}>
         <TextInput
@@ -46,11 +74,16 @@ const AddHabitScreen = () => {
             })}
             style={styles.segmentedButtons}
             buttons={FREQUENCIES.map(item => (
-              {label: item.charAt(0), value: item}
+              {label: `${item.charAt(0).toUpperCase()}${item.slice(1)}`, value: item}
             ))}
           />
         </View>
-        <Button style={styles.habitBtn} mode='contained'>Add Habit</Button>
+        <Button
+         style={styles.habitBtn}
+         mode='contained'
+         disabled={!data.description || !data.title}
+         onPress={handleSubmit}
+        >Add Habit</Button>
 
     </View>
   )
