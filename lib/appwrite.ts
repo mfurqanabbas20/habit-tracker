@@ -13,6 +13,11 @@ export const databases = new Databases(client);
 export const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID;
 export const COLLECTION_NAME = process.env.EXPO_PUBLIC_HABITS_TABLE;
 
+export interface RealTimeResponse {
+  events: string[],
+  
+}
+
 
 
 
