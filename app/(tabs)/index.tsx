@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { client, COLLECTION_NAME, DATABASE_ID, RealTimeResponse, tableDatabases } from "@/lib/appwrite";
 import { useAuth } from "@/lib/auth-context";
 import { Habit } from "@/lib/types/habits";
@@ -6,10 +6,12 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Query } from "react-native-appwrite";
 import { Button, Surface } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Swipeable } from "react-native-gesture-handler";
 
 export default function Index() {
   const {signOut, user} = useAuth();
   const [habits, setHabits] = useState<Array<Habit>>([]);
+  const swipeableRefs = useRef<{[key: string]: Swipeable | null}>({});
 
   const fetchHabits = async () => {
     try {
@@ -69,7 +71,10 @@ export default function Index() {
             <Text style={styles.emptyStateText}>No Habits Yet. Add your first Habit!</Text>
           </View>
         ) : (
-          habits.map((habit) => (
+          habits.map((habit, key) => (
+        <Swipeable ref={(ref) => {
+          swipeableRefs.current[habit.$id] = ref;
+        }} key={key}>
           <Surface style={styles.card} elevation={0}>
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{habit.title}</Text>
@@ -89,6 +94,7 @@ export default function Index() {
               </View>
             </View>
           </Surface>
+        </Swipeable>
           ))
         )
         }
