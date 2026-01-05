@@ -53,7 +53,7 @@ export default function Index() {
   }, [user])
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
     <View
       style={styles.container}
     >
