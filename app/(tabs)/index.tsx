@@ -54,6 +54,26 @@ export default function Index() {
     }
   }, [user])
 
+  const renderLeftActions = () => {
+    <View style={{backgroundColor: "red"}}>
+      <MaterialCommunityIcons
+       name="trash-can-outline"
+       size={32}
+       color={"#fff"}
+       />
+    </View>
+  }
+
+  const renderRightActions = () => {
+    <View style={{backgroundColor: "green"}}>
+      <MaterialCommunityIcons
+       name="check-circle-outline"
+       size={32}
+       color={"#fff"}
+       />
+    </View>
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
     <View
@@ -77,6 +97,8 @@ export default function Index() {
         }} key={key}
         overshootLeft={false}
         overshootRight={false}
+        renderLeftActions={renderLeftActions as any}
+        renderRightActions={renderRightActions as any}
         >
           <Surface style={styles.card} elevation={0}>
             <View style={styles.cardContent}>
