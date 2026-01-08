@@ -2,15 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Models } from "react-native-appwrite";
 import { ID } from "react-native-appwrite";
 import { account } from "./appwrite";
-
-
-type AuthContextType = {
-    user: Models.User<Models.Preferences> | null;
-    isLoading: boolean;
-    signUp: (credentials: {email: string; password: string}) => Promise<string | null>;
-    signIn: (credentials: {email: string; password: string}) => Promise<string | null>;
-    signOut: () => Promise<void>
-}
+import { AuthContextType } from "./types/auth";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
